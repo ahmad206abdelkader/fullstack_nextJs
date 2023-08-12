@@ -1,13 +1,17 @@
-import '@/styles/globals.css'
+import '@/styles/globals1.css'
 
 import GlassPane from "../../components/GlassPane";
+import Sidebar from '@/components/Sidebar';
+
 
 export default function DashboardRootLayout({children}){
   return (
     <html lang="en">
         <head />
-        <body className="h-screen w-scren rainbow-mesh p-6">
-            <GlassPane className="w-full h-full flex item-center justify-center">
+        <body className="h-screen w-scren candy-mesh p-6">
+            <GlassPane className="w-full h-full flex item-center ">
+            <Sidebar />
+            
          {children}
          </GlassPane>
         </body>

@@ -37,24 +37,13 @@
     background-color: rgba(255, 255, 255, 0.4);
     height: 100%;
     width: 100%;
+    display: flex;
   }
   
   [data-nextjs-scroll-focus-boundary] {
     display: contents;
   }
   
-.card{
-  margin: auto;
-  margin-top: 1%;
-  
-  
-  width: 30%;
-  max-height: 90vh;
-  
-  
-  
-  
-}
 
 
 p{
@@ -70,5 +59,7 @@ input{
   background-color: #0B1419;
   width: 10px;
 }
-
-
+.card{
+  margin: 2vh;
+  height: auto;
+}
