@@ -1,12 +1,12 @@
-import { getUserFromCookie } from '@/lib/auth'
-import { db } from '@/lib/db'
-import { TASK_STATUS } from '@prisma/client'
-import { cookies } from 'next/headers'
-import Button from './Button'
-import Card from './Card'
+import { getUserFromCookie } from "@/lib/auth";
+import { db } from "@/lib/db";
+import { TASK_STATUS } from "@prisma/client";
+import { cookies } from "next/headers";
+import Button from "./Button";
+import Card from "./Card";
 
 const getData = async () => {
-  const user = await getUserFromCookie(cookies())
+  const user = await getUserFromCookie(cookies());
   const tasks = await db.task.findMany({
     where: {
       ownerId: user?.id,
@@ -17,14 +17,33 @@ const getData = async () => {
     },
     take: 5,
     orderBy: {
-      due: 'asc',
+      due: "asc",
     },
-  })
+  });
 
-  return tasks
-}
-const TasksCard = async ({ title, tasks }) => {
-  const data = tasks || (await getData())
+  return tasks;
+};
+
+type Task = {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  ownerId: string;
+  projectId: string;
+  status: TASK_STATUS;
+  name: string;
+  description: string;
+  due: string;
+  deleted: boolean;
+};
+
+type TaskProps = {
+  title?: string;
+  tasks?: Task;
+};
+
+const TasksCard: React.FC<any> = async ({ title, tasks }) => {
+  let data = (await getData()) || tasks;
 
   return (
     <Card className="">
@@ -41,8 +60,8 @@ const TasksCard = async ({ title, tasks }) => {
       <div>
         {data && data.length ? (
           <div>
-            {data.map((task) => (
-              <div className="py-2 " key={task.id}>
+            {data.map((task, idx) => (
+              <div key={idx} className="py-2 ">
                 <div>
                   <span className="text-gray-800">{task.name}</span>
                 </div>
@@ -59,7 +78,7 @@ const TasksCard = async ({ title, tasks }) => {
         )}
       </div>
     </Card>
-  )
-}
+  );
+};
 
-export default TasksCard
+export default TasksCard;

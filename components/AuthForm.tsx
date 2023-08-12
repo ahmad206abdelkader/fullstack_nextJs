@@ -1,4 +1,5 @@
 'use client'
+import '@/styles/global.css'
 import { register, signin } from '@/lib/api'
 import { useCallback, useState } from 'react'
 import Link from 'next/link'
@@ -48,12 +49,7 @@ export default function AuthForm({ mode }: { mode: 'register' | 'signin' }) {
         setFormState({ ...initial })
       }
     },
-    [
-      formState.email,
-      formState.password,
-      formState.firstName,
-      formState.lastName,
-    ]
+    [formState, mode, router]
   )
 
   const content = mode === 'register' ? registerContent : signinContent
@@ -83,7 +79,9 @@ export default function AuthForm({ mode }: { mode: 'register' | 'signin' }) {
                 />
               </div>
               <div className="pl-2">
-                <div className="text-lg mb-4 ml-2 text-black/50">Last Name</div>
+                <div className="text-lg mb-4 ml-2 text-black/100">
+                  Last Name
+                </div>
                 <Input
                   required
                   placeholder="Last Name"
@@ -134,9 +132,7 @@ export default function AuthForm({ mode }: { mode: 'register' | 'signin' }) {
               </span>
             </div>
             <div>
-              <Button  intent="secondary">
-                {content.buttonText}
-              </Button>
+              <Button intent="secondary">{content.buttonText}</Button>
             </div>
           </div>
         </form>

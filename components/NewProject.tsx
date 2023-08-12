@@ -5,8 +5,6 @@ import Modal from 'react-modal'
 import Button from './Button'
 import Input from './Input'
 
-Modal.setAppElement('#modal')
-
 const NewProject = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
   const openModal = () => setIsOpen(true)
@@ -17,6 +15,8 @@ const NewProject = () => {
     e.preventDefault()
     await createNewProject(name)
     closeModal()
+    // this is a hack to refresh the page, you should use react-query instead or something else
+    window.location.reload()
   }
 
   return (
@@ -32,10 +32,12 @@ const NewProject = () => {
         <h1 className="text-3xl mb-6">New Project</h1>
         <form className="flex items-center" onSubmit={handleSubmit}>
           <Input
+            className=""
             placeholder="project name"
             value={name}
-            onChange={(e) => setName(e.target.value)} className={undefined}          />
-          <Button >Create</Button>
+            onChange={(e) => setName(e.target.value)}
+          />
+          <Button>Create</Button>
         </form>
       </Modal>
     </div>

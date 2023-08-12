@@ -2,19 +2,21 @@ import { getUserFromCookie } from '@/lib/auth'
 import { cookies } from 'next/headers'
 import Button from './Button'
 import Card from './Card'
-import img from '@/assets/images/marketing-manager.png'
-import Image from 'next/image'
 import { delay } from '@/lib/async'
+import '@/styles/global.css'
 
 const getData = async () => {
-  await delay(5000)
+  await delay(4000)
   const user = await getUserFromCookie(cookies())
+  if (!user) {
+    throw new Error('User not found')
+  }
+
   return user
 }
 
 const Greetings = async () => {
- 
-  const user:any = await getData()
+  const user: any = await getData()
 
   return (
     <Card className="w-full py-4 relative">
@@ -27,14 +29,8 @@ const Greetings = async () => {
         </h4>
       </div>
       <div>
-        <Button size="large">Today`s Schedule</Button>
+        <Button size="large">${`Today's`} Schedule</Button>
       </div>
-
-      <Image
-        src={img}
-        alt="busy person on computer"
-        className="w-1/3 absolute top-[-50px] right-0"
-      />
     </Card>
   )
 }
