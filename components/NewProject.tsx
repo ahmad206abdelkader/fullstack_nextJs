@@ -5,7 +5,7 @@ import Modal from 'react-modal'
 import Button from './Button'
 import Input from './Input'
 
-
+Modal.setAppElement('#modal')
 
 const NewProject = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
@@ -34,9 +34,8 @@ const NewProject = () => {
           <Input
             placeholder="project name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <Button type="submit">Create</Button>
+            onChange={(e) => setName(e.target.value)} className={undefined}          />
+          <Button >Create</Button>
         </form>
       </Modal>
     </div>

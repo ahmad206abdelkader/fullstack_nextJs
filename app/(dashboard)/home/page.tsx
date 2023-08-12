@@ -1,8 +1,8 @@
 import Greetings from '@/components/Greetings'
 import GreetingsSkeleton from '@/components/GreetingsSkeleton'
 import NewProject from '@/components/NewProject'
-import ProjectCard from '@/components/ProjectCard'
-import TasksCard from '@/components/TaskCard'
+import ProjectCard from '@/components/ProejctCard'
+import TasksCard from '@/components/TasksCard'
 import { delay } from '@/lib/async'
 import { getUserFromCookie } from '@/lib/auth'
 import { db } from '@/lib/db'
@@ -15,7 +15,7 @@ const getData = async () => {
   const user = await getUserFromCookie(cookies())
   const projects = await db.project.findMany({
     where: {
-      ownerId: user.id,
+      ownerId: user?.id,
     },
     include: {
       tasks: true,
@@ -25,6 +25,7 @@ const getData = async () => {
   return { projects }
 }
 
+
 export default async function Page() {
   const { projects } = await getData()
 
@@ -33,13 +34,12 @@ export default async function Page() {
       <div className=" h-full  items-stretch justify-center min-h-[content]">
         <div className="flex-1 grow flex">
           <Suspense fallback={<GreetingsSkeleton />}>
-            {/* @ts-expect-error Server Component */}
-            <Greetings />
+          {/* @ts-expect-error Server Component */}
+          <Greetings />
           </Suspense>
         </div>
         <div className="flex flex-2 grow items-center flex-wrap mt-3 -m-3 ">
-
-          {projects.map(project => (
+          {projects.map((project) => (
             <div className="w-1/3 p-3" key={project.id}>
               <Link href={`/project/${project.id}`}>
                 <ProjectCard project={project} />
@@ -52,8 +52,8 @@ export default async function Page() {
         </div>
         <div className="mt-6 flex-2 grow w-full flex">
           <div className="w-full">
-            {/* @ts-expect-error Server Component */}
-            <TasksCard />
+            {/* @ts-expect-error Server Component */} 
+            <TasksCard  />
           </div>
         </div>
       </div>

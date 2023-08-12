@@ -1,21 +1,23 @@
-import { getUserFromCookie } from "@/lib/auth";
-import { cookies } from "next/headers";
-import Button from "./Button";
-import Card from "./Card";
-import { delay } from "@/lib/async";
-import "@/styles/globals3.css"
+import { getUserFromCookie } from '@/lib/auth'
+import { cookies } from 'next/headers'
+import Button from './Button'
+import Card from './Card'
+import img from '@/assets/images/marketing-manager.png'
+import Image from 'next/image'
+import { delay } from '@/lib/async'
 
 const getData = async () => {
-  await delay(4000);
-  const user = await getUserFromCookie(cookies());
-  return user;
-};
+  await delay(5000)
+  const user = await getUserFromCookie(cookies())
+  return user
+}
 
 const Greetings = async () => {
-  const user = await getData();
+ 
+  const user:any = await getData()
 
   return (
-    <Card className="greet w-full py-4 relative">
+    <Card className="w-full py-4 relative">
       <div className="mb-4">
         <h1 className="text-3xl text-gray-700 font-bold mb-4">
           Hello, {user.firstName}!
@@ -25,10 +27,16 @@ const Greetings = async () => {
         </h4>
       </div>
       <div>
-        <Button size="large">Today's Schedule</Button>
+        <Button size="large">Today`s Schedule</Button>
       </div>
-    </Card>
-  );
-};
 
-export default Greetings;
+      <Image
+        src={img}
+        alt="busy person on computer"
+        className="w-1/3 absolute top-[-50px] right-0"
+      />
+    </Card>
+  )
+}
+
+export default Greetings
